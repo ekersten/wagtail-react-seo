@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "wagtail-react-seo"
+version = "0.1.0"
+description = ""
+authors = ["Eric Kersten <ekersten@gmail.comn>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.8"
+wagtail = "4.2.2"
+wagtail-metadata = "^4.0.3"
+django-extensions = "^3.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

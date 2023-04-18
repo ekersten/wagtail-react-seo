@@ -1,0 +1,34 @@
+{% load wagtailmetadata_tags wagtailroutablepage_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% meta_tags seo_object %}
+    <title>{{ seo_object.get_meta_title }}</title>
+</head>
+<body>
+    <div id="catalog_root">
+        <h1>{{ seo_object.get_meta_title }}</h1>
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <a href="{% routablepageurl page "category" category_slug=category.slug %}">{{ category.name }}</a>
+                        {% if category.product_set.count > 0 %}
+                            <ul>
+                                {% for product in category.product_set.all %}
+                                    <li>
+                                        <a href="{% routablepageurl page "product" product_slug=product.slug %}">{{ product.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
