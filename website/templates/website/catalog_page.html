@@ -11,6 +11,7 @@
 <body>
     <div id="catalog_root">
         <h1>{{ seo_object.get_meta_title }}</h1>
+        <p>{{ seo_object.get_meta_description }}</p>
         {% if categories %}
             <ul>
                 {% for category in categories %}
@@ -25,6 +26,17 @@
                                 {% endfor %}
                             </ul>
                         {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if seo_object.product_set.count > 0 %}
+            <h2>Products</h2>
+            <ul>
+                {% for product in seo_object.product_set.all %}
+                    <li>
+                        <a href="{% routablepageurl page "product" product_slug=product.slug %}">{{ product.name }}</a>
                     </li>
                 {% endfor %}
             </ul>

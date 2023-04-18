@@ -44,6 +44,7 @@ class CatalogPage(MetadataPageMixin, RoutablePageMixin, Page):
 class Category(MetadataMixin, models.Model):
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from="name", unique=True, overwrite=True)
+    description = models.TextField(null=True, blank=True)
 
     def get_meta_url(self):
         page = CatalogPage.objects.first()
@@ -54,7 +55,7 @@ class Category(MetadataMixin, models.Model):
         return f'{self.name} | {page.title}'
 
     def get_meta_description(self):
-        return f'All products in {self.name} category'
+        return self.description
 
     def __str__(self):
         return self.name
@@ -64,6 +65,7 @@ class Category(MetadataMixin, models.Model):
 class Product(MetadataMixin, models.Model):
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from="name", unique=True, overwrite=True)
+    description = models.TextField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def get_meta_url(self):
@@ -75,7 +77,7 @@ class Product(MetadataMixin, models.Model):
         return f'{self.name} | {page.title}'
 
     def get_meta_description(self):
-        return f'Product {self.name}'
+        return self.description
 
     def __str__(self):
         return self.name
